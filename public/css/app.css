@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/css?family=Inter);
 @charset "UTF-8";
 
 /*!
@@ -10945,3 +10945,93 @@ a.text-dark:focus {
 }
 
 
+html{
+    min-height:100%;
+    position:relative;
+}
+
+body{
+    background-image: url('/img/books.jpg');
+    background-repeat:repeat-y;
+    background-position:right top;
+    height: 100%;
+
+}
+
+footer{
+    background-color: rgba(211, 198, 198, 0.8);
+}
+
+.main-navbar{
+    background-color: rgba(241, 242, 242, 0.8);
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+
+.text-black{
+    color:black;
+}
+
+.menu_item{
+    padding: 0px 15px;
+    background-color: #F2F8FD;
+    border-radius: 10px;
+    margin-right: 8px;
+    font-size: larger;
+}
+
+.menu_item:hover{
+    border: 1px solid green;
+}
+
+.main-div{
+    min-height: 83vh;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.author-card{
+    width: 10rem;
+    margin: 10px 5px;
+    display:inline-block;
+    cursor: pointer;
+}
+
+.author-img{
+    height: 200px;
+    
+}
+
+
+.author-description{
+    background-color: rgba(211, 235, 76, 0.2);
+    border-radius: 3px;
+    text-align: left;
+}
+
+.hr{
+    border: 2px dashed rgb(114, 114, 114);
+}
+
+.text-item{
+    text-decoration: none;
+}
+
+.text-card{
+    background-color: rgba(0,0,0,0);
+    width: 20rem;
+    margin: 5px 5px;
+    display:inline-block;
+    cursor: pointer;
+    padding:0;
+    text-align: left;
+}
+
+.text-read{
+    color: gray;
+    opacity: 0.9;
+}
+
+.text-card-text{
+    color:#004156;
+}
