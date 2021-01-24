@@ -30,3 +30,21 @@ Route::get('/texts/popular', [App\Http\Controllers\HomeController::class, 'popul
 
 Route::get('/my', [App\Http\Controllers\UserController::class, 'mypage'])->name('mypage');
 Route::post('/my/dislike', [App\Http\Controllers\UserController::class, 'dislikeTextMy'])->name('dislikeTextMy');
+
+
+
+Route::prefix('admin')->middleware('guest:admin')->group(function () {                        
+    Route::get('/login', [App\Http\Controllers\AdminController::class, 'login'])->name('adminLogin');
+    Route::post('/login', [App\Http\Controllers\AdminController::class, 'loginSubmit'])->name('adminLoginSubmit');
+});
+
+Route::prefix('admin')->middleware('auth:admin')->group(function () {
+    Route::get('/', [App\Http\Controllers\AdminController::class, 'adminHome'])->name('adminHome');
+    Route::get('/logout', [App\Http\Controllers\AdminController::class, 'Logout'])->name('adminLogout');
+    Route::get('/addAuthor', [App\Http\Controllers\AdminController::class, 'adminAddAuthor'])->name('adminAddAuthor');
+    Route::get('/addText', [App\Http\Controllers\AdminController::class, 'adminAddText'])->name('adminAddText');
+    Route::post('/addAuthor', [App\Http\Controllers\AdminController::class, 'adminAddAuthorSubmit'])->name('adminAddAuthorSubmit');
+    Route::post('/addText', [App\Http\Controllers\AdminController::class, 'adminAddTextSubmit'])->name('adminAddTextSubmit');
+    
+
+});

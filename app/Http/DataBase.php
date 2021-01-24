@@ -11,6 +11,10 @@ class DataBase
         return DB::select('SELECT * FROM authors INNER JOIN galleries ON galleries.id_author=authors.id;');
     }
 
+    public static function selectTextTypes(){
+        return DB::select("SELECT * FROM text_types");
+    }
+
     public static function selectAuthor($id)
     {
         return collect(DB::select('SELECT * FROM authors INNER JOIN galleries ON galleries.id_author=authors.id WHERE authors.id=?;', [$id]))->first();
@@ -56,6 +60,10 @@ class DataBase
         return DB::select("SELECT t.name, t.id, rt.read_date FROM texts AS t INNER JOIN read_text AS rt ON rt.id_text=t.id WHERE rt.id_user=? ORDER BY rt.read_date DESC",[$user_id]);
     }
 
+    public static function selectIdAuthor($pib, $country){
+        return collect(DB::select("SELECT id FROM authors WHERE PIB=? AND country=?", [$pib, $country]))->first()->id;
+    }
+
     
 
 
@@ -68,6 +76,18 @@ class DataBase
         DB::insert('INSERT INTO read_text(id_user, id_text, read_date) VALUES(?,?,?)', [$user_id, $text_id, $read_date]);
     }
 
+
+    public static function insertAuthor($pib, $country, $description){
+        DB::insert("INSERT INTO authors(PIB, country, description) VALUES(?, ?, ?)", [$pib, $country, $description]);
+    }
+
+    public static function insertAuthorPhoto($id_author, $photo){
+        DB::insert("INSERT INTO galleries(id_author, photo1) VALUES(?, ?)", [$id_author, $photo]);
+    }
+
+    public static function insertText($name, $id_author, $id_type, $value){
+        DB::insert("INSERT INTO texts(name, id_author, id_type, value, rating) VALUES(?, ?, ?, ?, ?)", [$name, $id_author, $id_type, $value, 1]);
+    }
 
 
     public static function deleteUserTextList($id, $user_id){

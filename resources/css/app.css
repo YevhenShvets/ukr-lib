@@ -88,3 +88,21 @@ footer{
 .text-card-text{
     color:#004156;
 }
+
+
+.admin{
+    position: fixed;
+    bottom: 0;
+    left: 40%;
+    padding: 10px;
+    background-color: black;
+    opacity: 0.8;
+}
+
+.admin:hover{
+    opacity: 1;
+}
+
+.admin a{
+    display: block;
+}

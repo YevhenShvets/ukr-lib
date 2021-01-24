@@ -40,7 +40,7 @@
                             <li class="nav-item menu_item">
                                 <a class="nav-link text-black" href="{{ route('popular') }}">Популярні</a>
                             </li>
-                            @auth()
+                            @auth('web')
                                 <li class="nav-item menu_item bg-warning">
                                     <a class="nav-link text-black text-dark" href="{{ route('mypage') }}">Моя сторінка</a>
                                 </li>
@@ -83,6 +83,16 @@
                 </div>
             </nav>
         </div>
+
+
+        @auth('admin')
+            <div class="align-items-center admin">
+                <a href="{{ route('adminHome') }}" class="btn btn-warning">Головне меню</a>
+                <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-sm mt-2">Форма для добавлення автора</a>
+                <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-sm mt-1">Форма для добавлення твору</a>
+                <a href="{{ route('adminLogout') }}" class="btn btn-danger btn-sm mt-3">Вихід</a>
+            </div>
+        @endauth
 
         <main class="mt-4">
             @yield('content')

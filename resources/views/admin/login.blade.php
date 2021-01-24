@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title')Авторизація@endsection
+@section('title')Авторизація для адміністратора@endsection
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8" style="min-height: 80vh;">
             <div class="card" style="background-color: rgba(255,255,255,0.9);">
-                <div class="card-header text-center" style="font-size: 30px">{{ __('Авторизація') }}</div>
+                <div class="card-header text-center bg-warning" style="font-size: 30px">{{ __('Авторизація для адміністратора') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('adminLoginSubmit') }}">
                         @csrf
 
                         <div class="form-group row">
@@ -54,7 +54,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-outline-primary">
+                                <button type="submit" class="btn btn-warning">
                                     {{ __('Авторизуватись') }}
                                 </button>
                             </div>
