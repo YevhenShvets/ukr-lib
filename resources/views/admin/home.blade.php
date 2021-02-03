@@ -8,5 +8,9 @@
         <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-lg">Форма для добавлення автора</a>
         <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-lg ml-4">Форма для добавлення твору</a>
     </div>
+    <div class="d-flex justify-content-center mt-2">
+        <a href="{{ route('adminDeleteAuthor') }}" class="btn btn-danger btn-lg">Форма для вилучення автора</a>
+        <a href="{{ route('adminDeleteText') }}" class="btn btn-danger btn-lg ml-4">Форма для вилучення твору</a>
+    </div>
 </div>
 @endsection

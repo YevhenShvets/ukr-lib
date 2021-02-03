@@ -94,6 +94,14 @@ class DataBase
         DB::delete('DELETE FROM user_text_list WHERE id_user=? AND id_text=?', [$user_id, $id]);
     }
 
+    public static function deleteAuthor($author_id){
+        DB::delete('DELETE FROM authors WHERE id=?', [$author_id]);
+    }
+
+    public static function deleteText($text_id){
+        DB::delete('DELETE FROM texts WHERE id=?', [$text_id]);
+    }
+
 
 
     public static function updateTextRating($text_id){

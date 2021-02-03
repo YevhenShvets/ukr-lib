@@ -103,6 +103,14 @@ footer{
     opacity: 1;
 }
 
+.admin #hoverShow1{
+    display: none;
+}
+
+.admin:hover #hoverShow1{
+    display: block;
+}
+
 .admin a{
     display: block;
 }

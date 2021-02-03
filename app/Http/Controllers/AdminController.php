@@ -54,6 +54,23 @@ class AdminController extends Controller
         return view('admin.addText', ['authors' => $authors, 'types' => $types]);
     }
 
+    public function adminDeleteAuthor()
+    {
+        $authors = DataBase::selectAuthors();
+
+
+        return view('admin.deleteAuthor', ['authors' => $authors]);
+    }
+
+    
+    public function adminDeleteText()
+    {
+        $texts = DataBase::selectAllTexts();
+
+
+        return view('admin.deleteText', ['texts' => $texts]);
+    }
+
     public function adminAddAuthorSubmit(Request $request)
     {
         $pib = $request->input("pib");
@@ -77,6 +94,24 @@ class AdminController extends Controller
         $value_file = $request->file("value");
         $value = $value_file->openFile()->fread($value_file->getSize());
         DataBase::insertText($name, $id_author, $id_type, $value);
+
+
+        return redirect()->route("adminHome");
+    }
+
+    public function adminDeleteAuthorSubmit(Request $request)
+    {
+        $id_author = $request->input("author");
+        DataBase::deleteAuthor($id_author);
+
+
+        return redirect()->route("adminHome");
+    }
+
+    public function adminDeleteTextSubmit(Request $request)
+    {
+        $id_text = $request->input("text");
+        DataBase::deleteText($id_text);
 
 
         return redirect()->route("adminHome");

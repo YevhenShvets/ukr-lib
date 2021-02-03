@@ -46,5 +46,9 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/addAuthor', [App\Http\Controllers\AdminController::class, 'adminAddAuthorSubmit'])->name('adminAddAuthorSubmit');
     Route::post('/addText', [App\Http\Controllers\AdminController::class, 'adminAddTextSubmit'])->name('adminAddTextSubmit');
     
+    Route::get('/deleteAuthor', [App\Http\Controllers\AdminController::class, 'adminDeleteAuthor'])->name('adminDeleteAuthor');
+    Route::get('/deleteText', [App\Http\Controllers\AdminController::class, 'adminDeleteText'])->name('adminDeleteText');
+    Route::post('/deleteAuthor', [App\Http\Controllers\AdminController::class, 'adminDeleteAuthorSubmit'])->name('adminDeleteAuthorSubmit');
+    Route::post('/deleteText', [App\Http\Controllers\AdminController::class, 'adminDeleteTextSubmit'])->name('adminDeleteTextSubmit');
 
 });

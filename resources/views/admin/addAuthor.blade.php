@@ -5,7 +5,7 @@
 @section('content')
 <div class="container main-div">
     <div class="row justify-content-center">
-        <div class="col-md-8" style="min-height: 80vh;">
+        <div class="col-md-8" style="">
             <div class="card" style="background-color: rgba(255,255,255,0.9);">
                 <div class="card-header text-center bg-secondary" style="font-size: 22px">{{ __('Форма для добавлення автора') }}</div>
 

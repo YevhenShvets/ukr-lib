@@ -86,10 +86,16 @@
 
 
         @auth('admin')
-            <div class="align-items-center admin">
-                <a href="{{ route('adminHome') }}" class="btn btn-warning">Головне меню</a>
-                <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-sm mt-2">Форма для добавлення автора</a>
-                <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-sm mt-1">Форма для добавлення твору</a>
+            <div class="align-items-center admin" style="width:280px;">
+                <a href="{{ route('adminHome') }}" class="btn btn-warning" style="display:block;">Головне меню</a>
+                <hr style="background-color:green;">
+                <div id="hoverShow1">
+                    <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-sm mt-2">Добавлення автора</a>
+                    <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-sm mt-1">Добавлення твору</a>
+                    <a href="{{ route('adminDeleteAuthor') }}" class="btn btn-danger btn-sm mt-2">Вилучення автора</a>
+                    <a href="{{ route('adminDeleteText') }}" class="btn btn-danger btn-sm mt-1">Вилучення твору</a>
+                </div>
+                <hr style="background-color:green;">
                 <a href="{{ route('adminLogout') }}" class="btn btn-danger btn-sm mt-3">Вихід</a>
             </div>
         @endauth
