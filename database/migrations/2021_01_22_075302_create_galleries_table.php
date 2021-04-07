@@ -22,7 +22,7 @@ class CreateGalleriesTable extends Migration
 
 
 
-            $table->foreign('id_author')->references('id')->on('authors');
+            $table->foreign('id_author')->references('id')->on('authors')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

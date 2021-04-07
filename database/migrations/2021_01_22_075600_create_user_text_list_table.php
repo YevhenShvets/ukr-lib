@@ -21,8 +21,8 @@ class CreateUserTextListTable extends Migration
 
 
 
-            $table->foreign('id_user')->references('id')->on('users');
-            $table->foreign('id_text')->references('id')->on('texts');
+            $table->foreign('id_user')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_text')->references('id')->on('texts')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

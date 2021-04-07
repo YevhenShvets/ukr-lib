@@ -42,13 +42,31 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::get('/', [App\Http\Controllers\AdminController::class, 'adminHome'])->name('adminHome');
     Route::get('/logout', [App\Http\Controllers\AdminController::class, 'Logout'])->name('adminLogout');
     Route::get('/addAuthor', [App\Http\Controllers\AdminController::class, 'adminAddAuthor'])->name('adminAddAuthor');
-    Route::get('/addText', [App\Http\Controllers\AdminController::class, 'adminAddText'])->name('adminAddText');
     Route::post('/addAuthor', [App\Http\Controllers\AdminController::class, 'adminAddAuthorSubmit'])->name('adminAddAuthorSubmit');
+    Route::get('/addText', [App\Http\Controllers\AdminController::class, 'adminAddText'])->name('adminAddText');
     Route::post('/addText', [App\Http\Controllers\AdminController::class, 'adminAddTextSubmit'])->name('adminAddTextSubmit');
+    Route::get('/addTextType', [App\Http\Controllers\AdminController::class, 'adminAddTextType'])->name('adminAddTextType');
+    Route::post('/addTextType', [App\Http\Controllers\AdminController::class, 'adminAddTextTypeSubmit'])->name('adminAddTextTypeSubmit');
+    Route::get('/addContact', [App\Http\Controllers\AdminController::class, 'adminAddContact'])->name('adminAddContact');
+    Route::post('/addContact', [App\Http\Controllers\AdminController::class, 'adminAddContactSubmit'])->name('adminAddContactSubmit');
     
+
+    Route::get('/editText/{id}', [App\Http\Controllers\AdminController::class, 'adminEditText'])->name('adminEditText');
+    Route::post('/editText/{id}', [App\Http\Controllers\AdminController::class, 'adminEditTextSubmit'])->name('adminEditTextSubmit');
+    Route::post('/editText/{id}/addPage', [App\Http\Controllers\AdminController::class, 'adminEditTextAddPage'])->name('adminEditTextAddPage');
+    Route::post('/editText/{id}/deletePage', [App\Http\Controllers\AdminController::class, 'adminEditTextDeletePage'])->name('adminEditTextDeletePage');
+    
+    Route::get('/editAuthor/{id}', [App\Http\Controllers\AdminController::class, 'adminEditAuthor'])->name('adminEditAuthor');
+    Route::post('/editAuthor/{id}', [App\Http\Controllers\AdminController::class, 'adminEditAuthorSubmit'])->name('adminEditAuthorSubmit');
+    Route::get('/editContact/{id}', [App\Http\Controllers\AdminController::class, 'adminEditContact'])->name('adminEditContact');
+    Route::post('/editContact/{id}', [App\Http\Controllers\AdminController::class, 'adminEditContactSubmit'])->name('adminEditContactSubmit');
+    
+
     Route::get('/deleteAuthor', [App\Http\Controllers\AdminController::class, 'adminDeleteAuthor'])->name('adminDeleteAuthor');
-    Route::get('/deleteText', [App\Http\Controllers\AdminController::class, 'adminDeleteText'])->name('adminDeleteText');
     Route::post('/deleteAuthor', [App\Http\Controllers\AdminController::class, 'adminDeleteAuthorSubmit'])->name('adminDeleteAuthorSubmit');
+    Route::get('/deleteText', [App\Http\Controllers\AdminController::class, 'adminDeleteText'])->name('adminDeleteText');
     Route::post('/deleteText', [App\Http\Controllers\AdminController::class, 'adminDeleteTextSubmit'])->name('adminDeleteTextSubmit');
+    Route::post('/deleteTextType', [App\Http\Controllers\AdminController::class, 'adminDeleteTextTypeSubmit'])->name('adminDeleteTextTypeSubmit');
+    Route::post('/deleteContact', [App\Http\Controllers\AdminController::class, 'adminDeleteContactSubmit'])->name('adminDeleteContactSubmit');
 
 });

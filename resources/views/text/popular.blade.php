@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title')Твори@endsection
+@section('title')Популярні твори@endsection
 
 
 @section('content')

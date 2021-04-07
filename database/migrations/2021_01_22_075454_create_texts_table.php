@@ -18,13 +18,12 @@ class CreateTextsTable extends Migration
             $table->string('name');
             $table->unsignedBigInteger('id_author');
             $table->unsignedBigInteger('id_type');
-            $table->binary('value');
             $table->integer('rating');
 
 
 
-            $table->foreign('id_author')->references('id')->on('authors');
-            $table->foreign('id_type')->references('id')->on('text_types');
+            $table->foreign('id_author')->references('id')->on('authors')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('id_type')->references('id')->on('text_types')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

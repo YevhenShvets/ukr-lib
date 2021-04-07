@@ -32,6 +32,9 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item menu_item">
+                                <a class="nav-link text-black" href="{{ route('home') }}">Головна</a>
+                            </li>
+                            <li class="nav-item menu_item">
                                 <a class="nav-link text-black" href="{{ route('authors') }}">Автори</a>
                             </li>
                             <li class="nav-item menu_item">
@@ -86,14 +89,24 @@
 
 
         @auth('admin')
-            <div class="align-items-center admin" style="width:280px;">
+            <div class="align-items-center admin" style="width:280px; z-index:1;">
                 <a href="{{ route('adminHome') }}" class="btn btn-warning" style="display:block;">Головне меню</a>
                 <hr style="background-color:green;">
                 <div id="hoverShow1">
-                    <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-sm mt-2">Добавлення автора</a>
-                    <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-sm mt-1">Добавлення твору</a>
-                    <a href="{{ route('adminDeleteAuthor') }}" class="btn btn-danger btn-sm mt-2">Вилучення автора</a>
-                    <a href="{{ route('adminDeleteText') }}" class="btn btn-danger btn-sm mt-1">Вилучення твору</a>
+                    <div style="display:flex; justify-content:center;">
+                        <a href="{{ route('adminAddAuthor') }}" class="btn btn-dark btn-sm">Добавлення автора</a>
+                        <a href="{{ route('adminDeleteAuthor') }}" class="btn btn-danger btn-sm">Вилучення автора</a>
+                    </div>
+                    <div>
+                        <a href="{{ route('adminAddTextType') }}" class="btn btn-info btn-sm mt-3">Добавлення / Вилучення типу твору</a>
+                    </div>
+                    <div class="mt-3" style="display:flex; justify-content:center;">
+                        <a href="{{ route('adminAddText') }}" class="btn btn-dark btn-sm">Добавлення твору</a>
+                        <a href="{{ route('adminDeleteText') }}" class="btn btn-danger btn-sm">Вилучення твору</a>
+                    </div>
+                    <div>
+                        <a href="{{ route('adminAddContact') }}" class="btn btn-info btn-sm mt-3">Добавлення контакту</a>
+                    </div>
                 </div>
                 <hr style="background-color:green;">
                 <a href="{{ route('adminLogout') }}" class="btn btn-danger btn-sm mt-3">Вихід</a>
@@ -103,8 +116,7 @@
         <main class="mt-4">
             @yield('content')
         </main>
-
-        <footer>
+        <footer class="">
             <div class="text-center">
                 2021
             </div>

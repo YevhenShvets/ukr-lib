@@ -61,16 +61,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="value" class="col-md-4 col-form-label text-md-right">{{ __('Твір') }}</label>
-
+                            <label for="value" class="col-md-4 col-form-label text-md-right">{{ __('') }}</label>
                             <div class="col-md-6">
-                                <input id="value" type="file" class="form-control @error('value') is-invalid @enderror" name="value" required>
+                                <h5 style="margin: 0 auto;">Твір добавляється в редагуванні</h5>
+                                <!-- <input id="value" type="file" class="form-control @error('value') is-invalid @enderror" name="value" required>
 
                                 @error('value')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
-                                @enderror
+                                @enderror -->
                             </div>
                         </div>
                         

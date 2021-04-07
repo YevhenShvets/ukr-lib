@@ -25,6 +25,13 @@ class DataBase
         return DB::select('SELECT * FROM texts WHERE id_author=?;', [$author_id]);
     }
 
+    public static function selectContacts(){
+        $contacts = DB::select('SELECT * FROM contacts;');
+        if(count($contacts) == 0) $contacts = null;
+        return $contacts;
+
+    }
+
     public static function selectText($id)
     {
         return collect(DB::select('SELECT * FROM texts WHERE id=?;', [$id]))->first();
@@ -64,6 +71,10 @@ class DataBase
         return collect(DB::select("SELECT id FROM authors WHERE PIB=? AND country=?", [$pib, $country]))->first()->id;
     }
 
+    public static function selectContact($id){
+        return collect(DB::select("SELECT * FROM contacts WHERE id=?", [$id]))->first();
+    }
+
     
 
 
@@ -76,7 +87,6 @@ class DataBase
         DB::insert('INSERT INTO read_text(id_user, id_text, read_date) VALUES(?,?,?)', [$user_id, $text_id, $read_date]);
     }
 
-
     public static function insertAuthor($pib, $country, $description){
         DB::insert("INSERT INTO authors(PIB, country, description) VALUES(?, ?, ?)", [$pib, $country, $description]);
     }
@@ -85,8 +95,16 @@ class DataBase
         DB::insert("INSERT INTO galleries(id_author, photo1) VALUES(?, ?)", [$id_author, $photo]);
     }
 
-    public static function insertText($name, $id_author, $id_type, $value){
-        DB::insert("INSERT INTO texts(name, id_author, id_type, value, rating) VALUES(?, ?, ?, ?, ?)", [$name, $id_author, $id_type, $value, 1]);
+    public static function insertText($name, $id_author, $id_type){
+        DB::insert("INSERT INTO texts(name, id_author, id_type, rating) VALUES(?, ?, ?, ?)", [$name, $id_author, $id_type, 1]);
+    }
+
+    public static function insertTextTypes($name, $description){
+        DB::insert("INSERT INTO text_types(name, description) VALUES(?, ?)", [$name, $description]);
+    }
+
+    public static function insertContact($pib, $position, $section, $phone, $email, $photo){
+        DB::insert("INSERT INTO contacts(pib,position,section,phone,email,photo) VALUES(?,?,?,?,?,?);", [$pib, $position, $section, $phone, $email, $photo]);
     }
 
 
@@ -102,10 +120,35 @@ class DataBase
         DB::delete('DELETE FROM texts WHERE id=?', [$text_id]);
     }
 
+    public static function deleteTextType($id){
+        DB::delete('DELETE FROM text_types WHERE id=?', [$id]);
+    }
+
+    public static function deleteContact($id){
+        DB::delete('DELETE FROM contacts WHERE id=?', [$id]);
+    }
 
 
     public static function updateTextRating($text_id){
-        DB::update('UPDATE texts SET rating=rating+1;');
+        DB::update('UPDATE texts SET rating=rating+1 WHERE id=?;', [$text_id]);
+    }
+
+    public static function updateAuthor($id, $pib, $country, $description){
+        if($description)
+            DB::update("UPDATE authors SET PIB=?, country=?, description=? WHERE id=?;", [$pib, $country, $description, $id]);
+        else
+            DB::update("UPDATE authors SET PIB=?, country=? WHERE id=?;", [$pib, $country, $id]);
+    }
+
+    public static function updateAuthorPhoto($id_author, $photo){
+        DB::update("UPDATE galleries SET photo1=? WHERE id_author=?", [$photo, $id_author]);
+    }
+
+    public static function updateContact($id, $pib, $position, $section, $phone, $email, $photo){
+        if($photo)
+            DB::update("UPDATE contacts SET pib=?,position=?,section=?,phone=?,email=?,photo=? WHERE id=?;", [$pib, $position, $section, $phone, $email, $photo, $id]);
+        else
+        DB::update("UPDATE contacts SET pib=?,position=?,section=?,phone=?,email=? WHERE id=?;", [$pib, $position, $section, $phone, $email, $id]);
     }
 
 }

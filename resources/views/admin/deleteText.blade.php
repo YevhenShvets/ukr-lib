@@ -6,8 +6,8 @@
 <div class="container main-div">
     <div class="row justify-content-center">
         <div class="col-md-8" style="">
-            <div class="card" style="background-color: rgba(255,205,255,0.9);">
-                <div class="card-header text-center bg-secondary" style="font-size: 22px">{{ __('Форма для вилучення твору') }}</div>
+            <div class="card" style="background-color: rgba(255,255,255,0.8);">
+                <div class="card-header text-center" style="font-size: 22px; background-color:rgba(254,172,14, 0.8);">{{ __('Форма для вилучення твору') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('adminDeleteTextSubmit') }}">
@@ -19,7 +19,7 @@
                             <div class="col-md-6">
                                 <select id="text" class="form-control form-select @error('text') is-invalid @enderror" name="text" required>
                                     @foreach($texts as $text)
-                                        <option value="{{ $text->text_id }}">{{ $text->text_name }}</option>
+                                        <option value="{{ $text->text_id }}" {{ (Request::input('id') == $text->text_id) ? 'selected' : '' }}>{{ $text->text_name }}</option>
                                     @endforeach 
                                 </select>
                                 @error('text')
