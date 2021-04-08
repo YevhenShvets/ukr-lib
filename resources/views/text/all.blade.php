@@ -5,7 +5,6 @@
 
 @section('content')
 <div class="container bg-light main-div">
-    @isset($texts)
         <div class="text-center">
             <div class="row justify-content-center align-items-center p-3">
                 <div class="input-group" style="display: flex; align-items: center; justify-content: center;">
@@ -18,8 +17,38 @@
                     </div>
                 </div>
             </div>
+            @isset($types)
+            <div class="accordion" id="accordionExample" style="padding:0;">
+                <div class="card" style="background:rgba(0,0,0,0.05); padding:0;">
+                    <div class="card-header" id="headingOne">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" style="text-decoration:none; color:black; font-size:20px; padding:0;" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Більше пошуку
+                        </button>
+                    </h2>
+                    </div>
+
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                    <div class="card-body">
+                        <div>
+                            @forelse($types as $t)
+                            <a href="{{ route('texts', ['type' => $t->name]) }}">#{{ $t->name}}</a>
+                            @empty
+                            <p style="text-align:center">Пусто :(</p>
+                            @endforelse
+                        </div>
+                        <hr>
+                        <div>
+                        <a href="{{ route('popular') }}" style="margin: 0 auto; border-radius: 15px; font-size:15px; padding:10px 20px; background:rgba(12,34,255,0.5); color:black; width:min-content;">#Популярні</a>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            @endisset
+        @isset($texts)
             <hr class="hr">
-            @foreach($texts as $t)
+            @forelse($texts as $t)
                 <div class="card text-card" style="cursor:auto">
                     <div class="card-body p-2">
                         <div class="text-center">
@@ -48,10 +77,32 @@
                         @endauth
                     </div>
                 </div>
+            @empty
+            <h2 class="text-center">Пусто </h2>
+            @endforelse
+        </div>
+    @else
+    @isset($popular)
+    <hr class="hr">
+        <div class="text-center">
+            @foreach($popular as $t)
+                <div class="card text-card" style="cursor:auto">
+                    <div class="card-body p-2">
+                        <div class="text-center">
+                            <a href="{{ route('author', ['id' => $t->author_id]) }}"><h5>{{ $t->author }}</h5></a>
+                        </div>
+                        <h4 class="card-text text-card-text">{{ $t->text_name }}</h4>
+                        <p style="text-align:right; color:#242240; font-size: 12px; padding:0;">рейтинг: {{ $t->rating }}</p>
+                        <div class="text-center">
+                            <a class="text-read" style="text-decoration:none;" href="{{ route('text', ['id' => $t->text_id]) }}">Читати -></a>
+                        </div>
+                    </div>
+                </div>
             @endforeach
         </div>
     @else
         <h1>Творів не знайдено</h1>
+    @endisset
     @endisset
 </div>
 @endsection

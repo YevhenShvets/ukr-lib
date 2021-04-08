@@ -28,9 +28,15 @@ Route::post('/texts/search', [App\Http\Controllers\HomeController::class, 'searc
 Route::get('/texts/popular', [App\Http\Controllers\HomeController::class, 'popular'])->name('popular');
 
 
+Route::get('/contacts', [App\Http\Controllers\HomeController::class, 'contacts'])->name('contacts');
+Route::post('/contacts/submit', [App\Http\Controllers\HomeController::class, 'contactsSubmit'])->name('contactsSubmit');
+
+
+
 Route::get('/my', [App\Http\Controllers\UserController::class, 'mypage'])->name('mypage');
 Route::post('/my/dislike', [App\Http\Controllers\UserController::class, 'dislikeTextMy'])->name('dislikeTextMy');
-
+Route::post('/my/clearHistory', [App\Http\Controllers\UserController::class, 'adminClearHistory'])->name('adminClearHistory');
+Route::get('/my/deleteHistory/{id}', [App\Http\Controllers\UserController::class, 'adminDeleteHistory'])->name('adminDeleteHistory');
 
 
 Route::prefix('admin')->middleware('guest:admin')->group(function () {                        
@@ -49,6 +55,8 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/addTextType', [App\Http\Controllers\AdminController::class, 'adminAddTextTypeSubmit'])->name('adminAddTextTypeSubmit');
     Route::get('/addContact', [App\Http\Controllers\AdminController::class, 'adminAddContact'])->name('adminAddContact');
     Route::post('/addContact', [App\Http\Controllers\AdminController::class, 'adminAddContactSubmit'])->name('adminAddContactSubmit');
+    Route::get('/addCommentAnswer', [App\Http\Controllers\AdminController::class, 'addCommentsAnswer'])->name('addCommentsAnswer');
+    Route::post('/addCommentAnswer', [App\Http\Controllers\AdminController::class, 'addCommentsAnswerSubmit'])->name('addCommentsAnswerSubmit');
     
 
     Route::get('/editText/{id}', [App\Http\Controllers\AdminController::class, 'adminEditText'])->name('adminEditText');

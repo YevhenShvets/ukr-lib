@@ -252,4 +252,23 @@ class AdminController extends Controller
 
         return redirect()->route("adminAddTextType");
     }
+
+
+
+
+    public function addCommentsAnswer(){
+        $comments = DataBase::selectCommentsNoAnswer();
+        // dd($comments);
+
+        return view('admin.addCommentAnswer', ['comments' => $comments]);
+    }
+
+    public function addCommentsAnswerSubmit(Request $request){
+        $comment_id = $request->input('comment_id');
+        $message = $request->input('message');
+
+        DataBase::insertCommentAnswer($comment_id, $message);
+
+        return redirect()->route('addCommentsAnswer');
+    }
 }

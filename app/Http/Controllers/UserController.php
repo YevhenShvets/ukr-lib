@@ -32,4 +32,18 @@ class UserController extends Controller
 
         return redirect()->route('mypage');
     } 
+
+    public function adminClearHistory(Request $request){
+        $user_id = $request->input('user_id');
+        DataBase::clearHistory($user_id);
+
+        return redirect()->route('mypage');
+    }
+
+    public function adminDeleteHistory(Request $request, $id){
+        $user_id = $request->user()->id;
+        DataBase::deleteHistory($user_id, $id);
+
+        return redirect()->route('mypage');
+    }
 }

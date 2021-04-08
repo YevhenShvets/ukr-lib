@@ -25,5 +25,9 @@
     <div class="d-flex justify-content-center">
         <a href="{{ route('adminAddContact') }}" class="btn btn-info btn-lg mt-3">Добавлення контакту</a>
     </div>
+    <div class="d-flex justify-content-center">
+        <a href="{{ route('addCommentsAnswer') }}" class="btn btn-dark btn-lg mt-3">Добавлення відповіді на запитання</a>
+    </div>
+    
 </div>
 @endsection

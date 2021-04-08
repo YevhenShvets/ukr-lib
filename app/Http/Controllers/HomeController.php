@@ -95,23 +95,59 @@ class HomeController extends Controller
     {
         $texts = DataBase::selectAllTexts();
 
-        return view('text.all', ['texts' => $texts]);
+        $types = DataBase::selectTextTypes();
+
+        $type = $request->input('type');
+        if($type){
+            $texts = DataBase::selectTextsByType($type);
+        }
+        $search_text = $request->input('search');
+        if($search_text){
+            $texts = DataBase::search($search_text);
+        }
+        $popular_texts = null;
+        $view = $request->input('view');
+        if($view){
+            if($view == 'popular'){
+                $popular_texts = DataBase::selectPopularTexts();
+                $texts=null;
+            }
+        }
+        
+
+        return view('text.all', ['texts' => $texts, 'types' => $types, 'popular' =>$popular_texts]);
     } 
 
     public function search(Request $request)
     {
         $search_text = $request->input("search_text");
-        $texts = DataBase::search($search_text);
-
-
-        return view('text.all', ['texts' => $texts]);
+    
+        return redirect()->route('texts', ['search' => $search_text]);
     } 
 
     public function popular(Request $request)
     {
-        $popular_texts = DataBase::selectPopularTexts();
-
-
-        return view('text.popular', ['texts' => $popular_texts]);
+        return redirect()->route('texts', ['view' =>'popular']);
     } 
+
+    public function contacts(Request $request){
+
+        $contacts = DataBase::selectContacts();
+
+        $comments = DataBase::selectComments();
+        //dd($comments);
+
+        return view('contacts',  ['contacts' => $contacts, 'comments' => $comments]);
+    }
+
+    public function contactsSubmit(Request $request){
+        $user_name = $request->input("user_name");
+        $user_email = $request->input("user_email");
+        $user_message = $request->input("user_message");
+        $user_is_email = $request->input("user_is_email");
+
+        DataBase::insertComment($user_name, $user_email, $user_message, $user_is_email);
+
+        return redirect()->route('contacts');
+    }
 }

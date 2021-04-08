@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class DataBase
 {
@@ -18,6 +19,10 @@ class DataBase
     public static function selectAuthor($id)
     {
         return collect(DB::select('SELECT * FROM authors INNER JOIN galleries ON galleries.id_author=authors.id WHERE authors.id=?;', [$id]))->first();
+    }
+
+    public static function selectTextsByType($type){
+        return DB::select('SELECT t.id as text_id, a.id as author_id, a.pib as author, t.name as text_name, ttype.name as type_name FROM texts AS t INNER JOIN authors AS a ON a.id=t.id_author INNER JOIN text_types as ttype ON ttype.id=t.id_type WHERE ttype.name=?;', [$type]);
     }
 
     public static function selectTexts($author_id)
@@ -64,7 +69,7 @@ class DataBase
 
     public static function selectHistory($user_id)
     {
-        return DB::select("SELECT t.name, t.id, rt.read_date FROM texts AS t INNER JOIN read_text AS rt ON rt.id_text=t.id WHERE rt.id_user=? ORDER BY rt.read_date DESC",[$user_id]);
+        return DB::select("SELECT t.name, t.id, rt.read_date, rt.id as rtid FROM texts AS t INNER JOIN read_text AS rt ON rt.id_text=t.id WHERE rt.id_user=? ORDER BY rt.read_date DESC",[$user_id]);
     }
 
     public static function selectIdAuthor($pib, $country){
@@ -75,8 +80,14 @@ class DataBase
         return collect(DB::select("SELECT * FROM contacts WHERE id=?", [$id]))->first();
     }
 
-    
+    public static function selectComments(){
+        return DB::select("SELECT c.*, ca.answer_text, ca.created_at as answered_at FROM comments as c LEFT JOIN comments_answer as ca ON ca.id_comment=c.id order by c.id desc;");
+    }
 
+    public static function selectCommentsNoAnswer(){
+        return DB::select("SELECT c.* FROM comments as c LEFT JOIN comments_answer as ca ON ca.id_comment=c.id WHERE ca.id is null;");
+    }
+    
 
 
     public static function insertUserTextList($text_id, $user_id, $create_date){
@@ -107,6 +118,14 @@ class DataBase
         DB::insert("INSERT INTO contacts(pib,position,section,phone,email,photo) VALUES(?,?,?,?,?,?);", [$pib, $position, $section, $phone, $email, $photo]);
     }
 
+    public static function insertComment($user_name, $user_email, $user_message, $user_is_email){
+        DB::insert("INSERT INTO comments(user_name, user_email, user_message, is_email, created_at) VALUES(?,?,?,?,?);", [$user_name, $user_email, $user_message, $user_is_email, new DateTime()]);
+    }
+
+    public static function insertCommentAnswer($id_comment, $answer_text){
+        DB::insert("INSERT INTO comments_answer(id_comment, answer_text, created_at) VALUES(?,?,?);", [$id_comment, $answer_text, new DateTime()]);
+    }
+
 
     public static function deleteUserTextList($id, $user_id){
         DB::delete('DELETE FROM user_text_list WHERE id_user=? AND id_text=?', [$user_id, $id]);
@@ -126,6 +145,14 @@ class DataBase
 
     public static function deleteContact($id){
         DB::delete('DELETE FROM contacts WHERE id=?', [$id]);
+    }
+
+    public static function clearHistory($user_id){
+        DB::delete('DELETE FROM read_text WHERE id_user=?', [$user_id]);
+    }
+
+    public static function deleteHistory($user_id, $id){
+        DB::delete('DELETE FROM read_text WHERE id_user=? AND id=?', [$user_id, $id]);
     }
 
 

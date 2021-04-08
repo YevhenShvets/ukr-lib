@@ -42,15 +42,42 @@
             @isset($history)
             <div class="d-flex justify-content-center">
             <div class="card m-0 p-0" style="width: 30rem">
+                <div class="" style="text-align:right;">
+                    <form action="{{ route('adminClearHistory') }}" method="POST">
+                        @csrf
+                        <input type="text" name="user_id" value="{{ Auth::id() }}" hidden>
+                        <button type="submit" style="color:blue;" class="btn">
+                        Видалити всю історію
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                        </svg>
+                        </button>
+                    </form>
+                </div>
                 <ul class="list-group list-group-flush flex-fill m-0 mt-1">
-                    @foreach($history as $h)
+                    @forelse($history as $h)
                             <li class="list-group-item">
-                                <a href="{{ route('text', ['id' => $h->id]) }}">
-                                    {{ $h->name }}
-                                    <div class="text-right">{{ date('d:m:Y H:i', strtotime($h->read_date)) }}</div>
-                                </a>
+                                <div class="d-flex" style="justify-content:space-between;">
+                                    <div>
+                                        <a href="{{ route('text', ['id' => $h->id]) }}">
+                                            {{ $h->name }}
+                                        </a>
+                                        <div class="">{{ date('d:m:Y H:i', strtotime($h->read_date)) }}</div>
+                                    </div>
+                                    <div style="text-align:right;">
+                                        <a href="{{ route('adminDeleteHistory', $h->rtid) }}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                        </svg>
+                                        </a>
+                                    </div>
+                                </div>
                             </li>
-                    @endforeach
+                    @empty
+                        <li class="list-group-item text-center">
+                            Пусто
+                        </li>
+                    @endforelse
                 </ul>
             </div>
             </div>
